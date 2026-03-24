@@ -1,0 +1,15 @@
+.texto-intro {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.texto-intro h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.texto-intro p {
+    color: var(--text-muted);
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}

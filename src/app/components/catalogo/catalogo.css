@@ -1,0 +1,55 @@
+.catalogo-container {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.catalogo-container h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 30px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.juego-card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    border: 2px solid transparent;
+    transition: transform 0.3s, border 0.3s;
+    text-align: left;
+    text-decoration: none; 
+    color: inherit; /* mantiene el color del texto original */
+    display: block;
+}
+
+.juego-card:hover {
+    transform: scale(1.06);
+    border-color: var(--primary-color);
+}
+
+.juego-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 15px;
+}
+
+.card-content h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.card-content p {
+    font-size: 0.9em;
+    color: var(--text-muted);
+}

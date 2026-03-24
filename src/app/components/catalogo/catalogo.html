@@ -1,0 +1,22 @@
+<div class="catalogo-container">
+  <h2>Catálogo de Videojuegos</h2>
+  
+  <div class="grid-container">
+    
+    @for (juego of juegos; track juego.id) {
+      
+      <a [routerLink]="['/juego', juego.id]" class="juego-card">
+        
+        <img [src]="juego.portada" alt="Portada de {{ juego.nombre }}">
+        
+        <div class="card-content">
+          <h3>{{ juego.nombre }}</h3>
+          <p><strong>Género:</strong> {{ juego.genero }}</p>
+          <p><strong>Plataforma:</strong> {{ juego.plataforma }}</p>
+        </div>
+      </a>
+      
+    }
+
+  </div>
+</div>

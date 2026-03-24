@@ -1,0 +1,53 @@
+.form-container {
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    margin: 60px auto; /* centrado */
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+}
+
+.form-container p {
+    margin-bottom: 30px;
+    color: var(--text-muted);
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+} 
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-container input {
+    width: 100%;
+    border: 1px solid #444;
+    padding: 10px;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    font-size: 1em;
+    border-radius: 5px;
+}
+
+.form-links {
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+
+.form-links a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.form-links a:hover {
+    text-decoration: underline;
+}

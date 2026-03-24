@@ -1,0 +1,50 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white text-center">
+          <h3>Crear Cuenta</h3>
+        </div>
+        <div class="card-body">
+          
+          <form [formGroup]="formularioRegistro" (ngSubmit)="enviarRegistro()">
+            
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input type="text" id="nombre" class="form-control" formControlName="nombre">
+              <small class="text-danger" *ngIf="formularioRegistro.get('nombre')?.invalid && formularioRegistro.get('nombre')?.touched">
+                El nombre es obligatorio.
+              </small>
+            </div>
+
+            <div class="mb-3">
+              <label for="apellido" class="form-label">Apellido</label>
+              <input type="text" id="apellido" class="form-control" formControlName="apellido">
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo</label>
+              <input type="email" id="email" class="form-control" formControlName="email">
+              <small class="text-danger" *ngIf="formularioRegistro.get('email')?.invalid && formularioRegistro.get('email')?.touched">
+                Ingresa un correo válido.
+              </small>
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña</label>
+              <input type="password" id="password" class="form-control" formControlName="password">
+              <small class="text-danger" *ngIf="formularioRegistro.get('password')?.invalid && formularioRegistro.get('password')?.touched">
+                Mínimo 6 caracteres.
+              </small>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100" [disabled]="formularioRegistro.invalid">
+              Registrarse
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

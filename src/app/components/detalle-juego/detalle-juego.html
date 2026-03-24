@@ -1,0 +1,43 @@
+<div class="container" *ngIf="juegoSeleccionado">
+    
+    <section class="game-details">
+        <div class="game-image">
+            <img [src]="juegoSeleccionado.portada" alt="Portada de {{ juegoSeleccionado.nombre }}">
+        </div>
+        <div class="game-info">
+            <h1>{{ juegoSeleccionado.nombre }}</h1>
+            <p><strong>Género:</strong> {{ juegoSeleccionado.genero }}</p>
+            <p><strong>Plataforma:</strong> {{ juegoSeleccionado.plataforma }}</p>
+            <p class="description">{{ juegoSeleccionado.descripcion }}</p>
+            
+            <button class="btn-primario mt-20">Añadir a Favoritos</button>
+        </div>
+    </section>
+
+    <section class="reviews-section">
+        <h2>Reseñas de la Comunidad</h2>
+
+        <div class="review-form">
+            <h3>Escribe tu reseña</h3>
+            <textarea placeholder="¿Qué te pareció el juego?"></textarea>
+            <button class="btn-primario mt-10">Publicar Reseña</button>
+        </div>
+
+        <div class="review-list mt-30">
+            @for (resena of resenas; track resena.usuario) {
+                <div class="review-card">
+                    <p class="user-info">
+                        <strong>{{ resena.usuario }}</strong> - {{ resena.fecha }}
+                    </p>
+                    <p>{{ resena.texto }}</p>
+                </div>
+            }
+        </div>
+    </section>
+</div>
+
+<div class="container not-found-container" *ngIf="!juegoSeleccionado">
+    <h1>Juego no encontrado</h1>
+    <p>El juego que buscas no existe en nuestro catálogo.</p>
+    <a routerLink="/catalogo" class="btn-primario">Volver al Catálogo</a>
+</div>
