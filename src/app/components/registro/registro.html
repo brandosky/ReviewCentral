@@ -1,50 +1,46 @@
-<div class="container mt-4">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card shadow">
-        <div class="card-header bg-primary text-white text-center">
-          <h3>Crear Cuenta</h3>
-        </div>
-        <div class="card-body">
+<div class="form-container form-centrado">
+  <h2>Crear Cuenta</h2>
+  <p>Únete a ReviewCentral para publicar tus reseñas.</p>
+  
+  <form [formGroup]="formularioRegistro" (ngSubmit)="enviarRegistro()">
+      
+      <div class="form-group">
+          <label for="nombre">Nombre:</label>
+          <input type="text" id="nombre" formControlName="nombre" placeholder="Ingresa tu nombre">
           
-          <form [formGroup]="formularioRegistro" (ngSubmit)="enviarRegistro()">
-            
-            <div class="mb-3">
-              <label for="nombre" class="form-label">Nombre</label>
-              <input type="text" id="nombre" class="form-control" formControlName="nombre">
-              <small class="text-danger" *ngIf="formularioRegistro.get('nombre')?.invalid && formularioRegistro.get('nombre')?.touched">
-                El nombre es obligatorio.
-              </small>
-            </div>
-
-            <div class="mb-3">
-              <label for="apellido" class="form-label">Apellido</label>
-              <input type="text" id="apellido" class="form-control" formControlName="apellido">
-            </div>
-
-            <div class="mb-3">
-              <label for="email" class="form-label">Correo</label>
-              <input type="email" id="email" class="form-control" formControlName="email">
-              <small class="text-danger" *ngIf="formularioRegistro.get('email')?.invalid && formularioRegistro.get('email')?.touched">
-                Ingresa un correo válido.
-              </small>
-            </div>
-
-            <div class="mb-3">
-              <label for="password" class="form-label">Contraseña</label>
-              <input type="password" id="password" class="form-control" formControlName="password">
-              <small class="text-danger" *ngIf="formularioRegistro.get('password')?.invalid && formularioRegistro.get('password')?.touched">
-                Mínimo 6 caracteres.
-              </small>
-            </div>
-
-            <button type="submit" class="btn btn-success w-100" [disabled]="formularioRegistro.invalid">
-              Registrarse
-            </button>
-          </form>
-
-        </div>
+          <small class="error-text" *ngIf="formularioRegistro.get('nombre')?.invalid && formularioRegistro.get('nombre')?.touched">
+              El nombre es obligatorio.
+          </small>
       </div>
-    </div>
+
+      <div class="form-group">
+          <label for="apellido">Apellido:</label>
+          <input type="text" id="apellido" formControlName="apellido" placeholder="Ingresa tu apellido">
+      </div>
+
+      <div class="form-group">
+          <label for="email">Correo electrónico:</label>
+          <input type="email" id="email" formControlName="email" placeholder="ejemplo@correo.com">
+          
+          <small class="error-text" *ngIf="formularioRegistro.get('email')?.invalid && formularioRegistro.get('email')?.touched">
+              Ingresa un correo válido.
+          </small>
+      </div>
+
+      <div class="form-group">
+          <label for="password">Contraseña:</label>
+          <input type="password" id="password" formControlName="password" placeholder="Crea una contraseña">
+          
+          <small class="error-text" *ngIf="formularioRegistro.get('password')?.invalid && formularioRegistro.get('password')?.touched">
+              Mínimo 6 caracteres.
+          </small>
+      </div>
+      
+      <button type="submit" class="btn-primario" [disabled]="formularioRegistro.invalid">Crear cuenta</button>
+  </form>
+
+  <div class="form-links">
+      <p>¿Ya tienes una cuenta? <a routerLink="/login">Inicia Sesión</a></p>
+      <a routerLink="/">Volver al inicio</a>
   </div>
 </div>
