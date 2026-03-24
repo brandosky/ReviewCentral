@@ -3,9 +3,9 @@
   
   <div class="grid-container">
     
-    @for (juego of juegos; track juego.id) {
+    @for (juego of juegos(); track juego.id_nombre) {
       
-      <a [routerLink]="['/juego', juego.id]" class="juego-card">
+      <a [routerLink]="['/juego', juego.id_nombre]" class="juego-card">
         
         <img [src]="juego.portada" alt="Portada de {{ juego.nombre }}">
         
