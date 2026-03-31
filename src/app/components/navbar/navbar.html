@@ -1,11 +1,23 @@
 <header class="main-header">
   <div class="logo">
-    <a routerLink="/" class="logo-link">ReviewCentral</a>
+    <a routerLink="/" style="text-decoration: none; color: inherit;">ReviewCentral</a>
   </div>
 
   <nav>
-    <a routerLink="/catalogo" class="nav-link">Catálogo</a>
-    <a routerLink="/login" class="btn-primario login-btn">Iniciar Sesión</a>
-    <a routerLink="/registro" class="btn-primario">Crear Cuenta</a>
+    <a routerLink="/catalogo" style="color: white; margin-right: 20px; text-decoration: none;">Catálogo</a>
+
+    @if (authService.currentUser()) {
+        
+        <span style="color: white; margin-right: 15px;">
+            Bienvenido, {{ authService.currentUser()?.nombre }}
+        </span>
+        <a (click)="authService.logout()" class="btn-primario" style="cursor: pointer; color: white;">Cerrar Sesión</a>
+    
+    } @else {
+        
+        <a routerLink="/login" class="btn-primario" style="margin-right: 10px; color: white;">Iniciar Sesión</a>
+        <a routerLink="/registro" class="btn-primario" style="color: white;">Crear Cuenta</a>
+        
+    }
   </nav>
 </header>

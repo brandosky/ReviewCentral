@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { RouterLink,Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
+import { Auth } from '../../services/auth';
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule, RouterLink, CommonModule], 
@@ -11,8 +11,10 @@ import { CommonModule } from '@angular/common';
 })
 export class Login implements OnInit {
   formularioLogin!: FormGroup;
+  private router=inject(Router);
+  private auth=inject(Auth);
+  private fb=inject(FormBuilder);
 
-  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.formularioLogin = this.fb.group({
@@ -23,9 +25,11 @@ export class Login implements OnInit {
 
   iniciarSesion(): void {
     if (this.formularioLogin.valid) {
-      const credenciales = this.formularioLogin.value;
-      console.log('Credenciales listas para enviar:', credenciales);
-      alert('¡datos validos!');
+      const emailIngresado=this.formularioLogin.value.email;
+
+      this.auth.login(emailIngresado);
+
+      this.router.navigate(['/home']);
     } else {
       this.formularioLogin.markAllAsTouched();
     }
