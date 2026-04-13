@@ -1,1 +1,40 @@
-<p>panel-admin works!</p>
+<div class="form-container form-centrado panel-admin-container">
+    <h2>Panel de Administración</h2>
+    <p>Agrega un nuevo videojuego a la base de datos.</p>
+    
+    <form [formGroup]="formularioJuego" (ngSubmit)="guardarJuego()">
+        
+        <div class="form-group">
+            <label for="id_nombre">id para la url(ejemplo:mario-bros):</label>
+            <input type="text" id="id_nombre" formControlName="id_nombre" placeholder="sin-espacios-ni-mayusculas">
+        </div>
+  
+        <div class="form-group">
+            <label for="nombre">Nombre oficial del juego:</label>
+            <input type="text" id="nombre" formControlName="nombre">
+        </div>
+  
+    <div class="form-group flex-group">
+        <div class="flex-item">
+                <label for="genero">Género:</label>
+                <input type="text" id="genero" formControlName="genero" placeholder="Ej: Plataformas">
+            </div>
+        <div class="flex-item">
+                <label for="plataforma">Plataforma:</label>
+                <input type="text" id="plataforma" formControlName="plataforma" placeholder="Ej: Nintendo Switch">
+            </div>
+        </div>
+  
+        <div class="form-group">
+            <label for="portada">Ruta de la imagen (Portada):</label>
+            <input type="text" id="portada" formControlName="portada">
+        </div>
+
+        <div class="form-group">
+            <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" formControlName="descripcion" rows="4" class="textarea-custom"></textarea>
+        </div>
+        
+        <button type="submit" class="btn-primario" [disabled]="formularioJuego.invalid">Guardar Videojuego</button>
+    </form>
+</div>

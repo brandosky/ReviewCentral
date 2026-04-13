@@ -9,5 +9,5 @@ import { Auth } from '../../services/auth';
   styleUrl: './navbar.css',
 })
 export class Navbar {
-  auth=inject(Auth);
+  authService = inject(Auth);
 }

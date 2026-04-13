@@ -9,14 +9,10 @@ export class Auth {
   currentUser = signal<Usuario | null>(null);
 
   login(email:string):void{
-
-  };
-
-  this.currentUser.set();
+    // TODO: Escribir la lógica de inicio de sesión real aquí.
+  }
 
 logout():void{
   this.currentUser.set(null);
 }
 }
-
-
