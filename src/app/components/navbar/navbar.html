@@ -7,6 +7,11 @@
     <a routerLink="/catalogo" style="color: white; margin-right: 20px; text-decoration: none;">Catálogo</a>
 
     @if (authService.currentUser()) {
+        @if (authService.currentUser()?.rol==='administrador') {
+        <a routerLink="/panel-admin"style="color:#ffaa00;margin-right:20px;text-decoration:none;font-weight:bold;">
+          Panel de administracion.
+        </a>
+        }
         
         <span style="color: white; margin-right: 15px;">
             Bienvenido, {{ authService.currentUser()?.nombre }}

@@ -6,6 +6,8 @@ import {PanelAdmin} from './components/panel-admin/panel-admin';
 import { Catalogo } from './components/catalogo/catalogo';
 
 export const routes: Routes = [
+    // Ruta base: Cuando entras a localhost:4200, te redirige a 'inicio'
+    { path: '', redirectTo: 'inicio', pathMatch: 'full' },
     { path: 'inicio', component: Inicio },
     { path: 'catalogo', component: Catalogo },
     { path: 'login', component: Login },
@@ -13,5 +15,5 @@ export const routes: Routes = [
     //{ path: 'juego/:id', component: DetalleJuego },
     { path: 'panel-admin', component: PanelAdmin },
     // Si alguien escribe una ruta que no existe, lo mandamos al inicio
-    { path: '**', redirectTo: '', pathMatch: 'full' } 
+    { path: '**', redirectTo: 'inicio', pathMatch: 'full' } 
 ];
