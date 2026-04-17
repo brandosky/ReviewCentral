@@ -1,7 +1,7 @@
-const Game = require('../models/game.model');
+const Game=require('../models/game.model');
 
 //con esto se obtiene los juegos que vaya a haber 
-const getGames = async (req, res) => {
+const getGames=async(req, res) => {
     try {
         const games = await Game.find();
         res.json(games);

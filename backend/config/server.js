@@ -24,6 +24,7 @@ class Server{
             res.json({ msg: 'api de ReviewCentral listo' });
         });
 
+        this.app.use('/api/users', require('../routes/users.routes'));  
         this.app.use('/api/games', require('../routes/games.routes'));
     }
     listen(){
