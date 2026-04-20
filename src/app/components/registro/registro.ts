@@ -1,6 +1,8 @@
-import { Component ,OnInit} from '@angular/core';
+import { Component ,OnInit,inject} from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Auth } from '../../services/auth';
+import { Router,RouterLink } from '@angular/router';
 @Component({
   selector: 'app-registro',
   imports: [ReactiveFormsModule,CommonModule],
@@ -9,8 +11,10 @@ import { CommonModule } from '@angular/common';
 })
 export class Registro implements OnInit {
 formularioRegistro!: FormGroup;
-//el constructor inyecta FormBuilder que es un servicio de angular para armar formularios
-constructor(private fb: FormBuilder) {}
+private fb=inject(FormBuilder);
+private auth=inject(Auth);
+private router=inject(Router);
+
 
 ngOnInit(): void {
     // se crean las reglas del formulario
@@ -23,14 +27,20 @@ ngOnInit(): void {
   }
   enviarRegistro(): void {
     if (this.formularioRegistro.valid) {
-      // se extrae el JSON con los datos listos para enviarlos a node.js
-      const datosUsuario = this.formularioRegistro.value;
-      console.log('JSON listo para enviar:', datosUsuario);
-      alert('Mira la consola.');
-    } else {
+      this.auth.registrar(this.formularioRegistro.value).subscribe({
+        next:(res)=>{
+          alert('Su cuenta se ha creado con exito.Ahora puedes iniciar sesion.');
+         this.router.navigate(['/login']);
+        },
+        error:(err)=>{
+          alert(err.error.msg||'Hubo un error al registrarse');
+        }
+      });
+    }else{
       this.formularioRegistro.markAllAsTouched();
-      alert('Faltan datos por llenar.');
     }
+      // se extrae el JSON con los datos listos para enviarlos a node.js
+  
   }
 
 }

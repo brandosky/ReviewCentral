@@ -3,6 +3,10 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { RouterLink,Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Auth } from '../../services/auth';
+import { errorContext } from 'rxjs/internal/util/errorContext';
+import { tap } from 'rxjs/operators';
+
+
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule, RouterLink, CommonModule], 
@@ -25,13 +29,17 @@ export class Login implements OnInit {
 
   iniciarSesion(): void {
     if (this.formularioLogin.valid) {
-      const emailIngresado=this.formularioLogin.value.email;
-
-      this.auth.login(emailIngresado);
-
-      this.router.navigate(['/home']);
+      this.auth.log(this.formularioLogin.value).subscribe({
+        next:(res:any)=>{
+          this.router.navigate(['/']);
+        },
+        error:(err:any)=>{
+          alert(err.error.msg||'Hubo un error al iniciar sesion');
+        }
+      });
     } else {
       this.formularioLogin.markAllAsTouched();
     }
   }
-}
+
+  }
