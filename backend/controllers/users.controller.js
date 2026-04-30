@@ -1,14 +1,15 @@
-const bcrypt=require('bcrypt');
-const User=require('..models/user.model');
+const User=require('../models/user.model');
 const {response,request}=require('express');
 const jwt=require('jsonwebtoken');
-const { useReducer } = require('react');
+const bcrypt = require('bcryptjs');
+const {generarJWT}=require('../helpers/generar-jwt');
+
 
 const registerUser=async(req=request,res=response)=>{
     const{nombre,apellido,email,password}=req.body;
 
     try{
-        const existeEmail=await user.findOne({email});
+        const existeEmail=await User.findOne({email});
         if(existeEmail){
             return res.status(400).json({msg:'el email que ingresaste ya esta registrado'});
         }
@@ -23,26 +24,30 @@ const registerUser=async(req=request,res=response)=>{
     }catch(error){
         res.status(500).json({msg:'error al registrar el usuario',error});
     }
+};
 
-    const loginUser=async(req=request,res=response)=>{
-        const{email,password}=req.body;
-        try{
-            const user=await User.findOne({email});
-            if(!user){
-                return res.status(400).json({msg:'el usuario no existe'});
-            }
+const loginUser=async(req=request,res=response)=>{
+    const{email,password}=req.body;
+    try{
+        const usuarioDB=await User.findOne({email});
+        if(!usuarioDB){
+            return res.status(400).json({msg:'el usuario no existe'});
+        }
 
-            const validPassword=bcrypt.compareSync(password,user.password);
-            if(!validPassword){
-                return res.status(400).json({msg:'contraseña incorrecta'});
-            }
-        
-        res.json({msg:'inicio de sesión exitoso',user});
+        const validPassword=bcrypt.compareSync(password,usuarioDB.password);
+        if(!validPassword){
+            return res.status(400).json({msg:'contraseña incorrecta'});
+        }
+    const token = await generarJWT(usuarioDB._id, usuarioDB.nombre);
+
+        res.json({
+            msg:'inicio de sesión exitoso',
+            usuario:usuarioDB,
+            token:token
+            });
     }catch(error){
         console.log(error);
         res.status(500).json({msg:'error al iniciar sesion',error});
     }
-
 };
 module.exports={registerUser,loginUser};
-}

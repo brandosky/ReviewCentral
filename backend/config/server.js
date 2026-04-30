@@ -25,7 +25,8 @@ class Server{
         });
 
         this.app.use('/api/users', require('../routes/users.routes'));  
-        this.app.use('/api/games', require('../routes/games.routes'));
+        this.app.use('/api/games', require('../routes/game.routes'));
+        this.app.use('/api/reviews', require('../routes/reviews.routes'));    
     }
     listen(){
         this.app.listen(this.port,()=>{

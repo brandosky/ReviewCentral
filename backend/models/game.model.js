@@ -1,6 +1,6 @@
-const {schema,model} = require('mongoose');
+const {Schema,model} = require('mongoose');
 
-const gameSchema = new schema({
+const gameSchema = new Schema({
     id_nombre:{
         type:String,
         required:true,

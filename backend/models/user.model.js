@@ -1,3 +1,4 @@
+const { Schema, model } = require('mongoose');
 const UserSchema=Schema ({
     nombre:{
         type:String,
