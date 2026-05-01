@@ -8,7 +8,7 @@ import { Game } from '../models/game.model';
 export class GameService {
   private http = inject(HttpClient);
   
-  private apiUrl = 'http://localhost:8080/api/games';
+  private apiUrl = 'http://localhost:8084/api/games';
 
   // Signal vacío al inicio
   private _games = signal<Game[]>([]);

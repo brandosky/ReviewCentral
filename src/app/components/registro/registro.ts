@@ -27,12 +27,12 @@ ngOnInit(): void {
   }
   enviarRegistro(): void {
     if (this.formularioRegistro.valid) {
-      this.auth.registrar(this.formularioRegistro.value).subscribe({
-        next:(res)=>{
+      this.auth.registro(this.formularioRegistro.value).subscribe({
+        next:(res: any)=>{
           alert('Su cuenta se ha creado con exito.Ahora puedes iniciar sesion.');
          this.router.navigate(['/login']);
         },
-        error:(err)=>{
+        error:(err: any)=>{
           alert(err.error.msg||'Hubo un error al registrarse');
         }
       });

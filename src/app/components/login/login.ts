@@ -29,7 +29,7 @@ export class Login implements OnInit {
 
   iniciarSesion(): void {
     if (this.formularioLogin.valid) {
-      this.auth.log(this.formularioLogin.value).subscribe({
+      this.auth.login(this.formularioLogin.value).subscribe({
         next:(res:any)=>{
           this.router.navigate(['/']);
         },
