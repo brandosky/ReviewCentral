@@ -26,7 +26,7 @@ const addReview = async (req = request, res = response) => {
         await nuevaReview.save();
 
         res.status(201).json({
-            msg: '¡Reseña publicada con éxito!',
+            msg: '¡Reseña publicada!',
             review: nuevaReview
         });
     } catch (error) {

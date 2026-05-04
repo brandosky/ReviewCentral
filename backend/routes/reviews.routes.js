@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { getReviewsPorJuego, addReview } = require('../controllers/reviews.controller');
+const {validarJWT} = require('../middleware/validar-jws');
 
 const router = Router();
 
