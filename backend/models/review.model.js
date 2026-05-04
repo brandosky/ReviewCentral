@@ -28,4 +28,4 @@ fecha:{
         }
 });
 
-module.exports=model('Reivew',ReviewSchema);
+module.exports=model('Review',ReviewSchema);

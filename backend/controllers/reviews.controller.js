@@ -19,8 +19,8 @@ const getReviewsPorJuego = async (req = request, res = response) => {
 
 // 2. guarda una reseña nueva
 const addReview = async (req = request, res = response) => {
-    const { juegoId, usuarioNombre, comentario, calificacion } = req.body;
-
+    const { juegoId, comentario, calificacion } = req.body;
+    const usuarioNombre = req.usuario.nombre;
     try {
         const nuevaReview = new Review({ juegoId, usuarioNombre, comentario, calificacion });
         await nuevaReview.save();

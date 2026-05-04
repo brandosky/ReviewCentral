@@ -42,7 +42,7 @@ const loginUser=async(req=request,res=response)=>{
 
         res.json({
             msg:'inicio de sesión exitoso',
-            usuario:usuarioDB,
+            user:usuarioDB,
             token:token
             });
     }catch(error){

@@ -8,14 +8,26 @@ import { HttpClient } from '@angular/common/http';
 })
 export class Auth {
   private http=inject(HttpClient);
-  private apiUrl='https://localhost:8084/api/users';
+  private apiUrl='http://localhost:8084/api/users';
 
   currentUser = signal<any>(this.ObtenerUsuarioGuarado());
 //al iniciar la aplicaicon ver si ya habia un usuario guardado 
 ObtenerUsuarioGuarado(){
   const userStr=localStorage.getItem('User');
-  return userStr ? JSON.parse(userStr) : null;
+
+  if(!userStr||userStr==='undefined'){
+    return null;
+  }
+
+  try{
+    return JSON.parse(userStr);
+  }catch(error){
+    console.error('Error al parsear el usuario guardado:', error);
+    localStorage.removeItem('User');
+    return null;
+  }
 }
+
 //modifica login y guarda token ,datos
   login(credenciales:any){
     return this.http.post(`${this.apiUrl}/login`,credenciales).pipe(

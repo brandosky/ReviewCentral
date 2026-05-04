@@ -33,6 +33,7 @@ ngOnInit(): void {
          this.router.navigate(['/login']);
         },
         error:(err: any)=>{
+          console.error('EL BACKEND DICE:', err);
           alert(err.error.msg||'Hubo un error al registrarse');
         }
       });
