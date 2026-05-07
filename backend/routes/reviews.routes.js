@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getReviewsPorJuego, addReview } = require('../controllers/reviews.controller');
+const { getReviewsPorJuego, addReview, deleteReview, getAllReviews} = require('../controllers/reviews.controller');
 const {validarJWT} = require('../middleware/validar-jws');
 
 const router = Router();
@@ -9,4 +9,7 @@ router.get('/:juegoId', getReviewsPorJuego);
 //guarda
 router.post('/', addReview);
 
+router.get('/all', getAllReviews);
+
+router.delete('/:id', deleteReview);
 module.exports = router;

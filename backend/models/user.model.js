@@ -21,7 +21,11 @@ const UserSchema=Schema ({
         type:String,
         required:true,
         default:'registrado'
-    }   
+    },
+    favoritos:{
+            type:[String],
+            default:[]
+    } 
 });
  UserSchema.methods.toJSON = function() {
     const { __v, password, ...user } = this.toObject();

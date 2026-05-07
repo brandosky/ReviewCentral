@@ -1,0 +1,107 @@
+.panel-admin-container {
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+    max-width: 600px; /* Un poco más ancho porque tiene más datos */
+    width: 100%;
+    margin: 60px auto; /* Esto es la magia que lo centra en la pantalla */
+    box-sizing: border-box;
+}
+
+.panel-admin-container h2, 
+.panel-admin-container p {
+    text-align: center;
+}
+
+.panel-admin-container p {
+    color: var(--text-muted);
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.form-group input, 
+.textarea-custom {
+    width: 100%;
+    border: 1px solid #444;
+    padding: 12px;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    font-size: 1em;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: border 0.3s;
+}
+
+/* Efecto neón al hacer clic en los inputs */
+.form-group input:focus, 
+.textarea-custom:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* Para que Género y Plataforma se vean uno al lado del otro */
+.flex-group {
+    display: flex;
+    gap: 15px;
+}
+
+.flex-item {
+    flex: 1;
+}
+
+.btn-primario {
+    width: 100%; /* Botón grande y centrado */
+    margin-top: 10px;
+}
+
+.dashboard-layout {
+    display: flex;
+    min-height: 80vh;
+}
+
+.sidebar {
+    width: 250px;
+    background: #1a1a1a;
+    padding: 20px;
+    border-right: 1px solid #333;
+}
+
+.sidebar-title {
+    color: var(--primary-color);
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin-top: 30px;
+}
+
+.sidebar-item {
+    margin-bottom: 15px;
+}
+
+.sidebar-btn {
+    width: 100%;
+    background: #333;
+}
+
+.main-content {
+    flex: 1;
+    padding: 40px;
+}
+
+.panel-juegos-container {
+    margin: 0;
+    max-width: 100%;
+}

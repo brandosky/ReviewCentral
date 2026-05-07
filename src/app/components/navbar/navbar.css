@@ -10,3 +10,19 @@
     font-size: 1.5em;
     font-weight: bold;
 }
+
+.nav-links a {
+    padding: 8px 16px;
+    background-color: var(--primary-color, #4a90e2);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+    background-color: #357abd;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transform: translateY(-2px); /* se levanta un poquito al pasar el mouse */
+}

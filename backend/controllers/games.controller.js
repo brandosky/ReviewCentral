@@ -10,7 +10,7 @@ const getGames=async(req, res) => {
     }
 };
 
-// 2. obtener detalles de un juego por su id_nombre
+// obtener detalles de un juego por su id_nombre
 const getGameById = async (req, res) => {
     try {
         const { id } = req.params;
@@ -48,7 +48,7 @@ const seedGames = async (req, res) => {
 };
 const createGame = async (req, res) => {
     try {
-        // req.body contiene los datos (JSON) que nos enviará Angular
+        // req.body contiene los datos (JSON) que nos envia Angular
         const nuevoJuego = new Game(req.body); 
         
         // Lo guardamos en MongoDB
@@ -63,9 +63,36 @@ const createGame = async (req, res) => {
         res.status(400).json({ msg: 'Error al guardar el juego (revisa que el id_nombre no esté repetido)', error });
     }
 };
+
+const updateGame = async (req, res) => {
+    const { id } = req.params;
+    try {
+        // busca el juego por id y lo actualiza con los nuevos datos (req.body)
+        const juegoActualizado = await Game.findByIdAndUpdate(id, req.body, { new: true });
+        res.json({ msg: '¡Juego actualizado con éxito!', juego: juegoActualizado });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: 'Error al actualizar el juego' });
+    }
+};
+
+const deleteGame = async (req, res) => {
+    const { id } = req.params;
+    try {
+        await Game.findByIdAndDelete(id);
+        res.json({ msg: 'Juego eliminado' });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: 'Error al eliminar' });
+    }
+};
+
 module.exports = {
     getGames,
     getGameById,
     seedGames,
-    createGame
+    createGame,
+    updateGame,
+    deleteGame
+
 };

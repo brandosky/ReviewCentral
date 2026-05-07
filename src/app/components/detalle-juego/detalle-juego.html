@@ -2,38 +2,64 @@
     
     <section class="game-details">
         <div class="game-image">
-            <img [src]="juegoSeleccionado.portada" alt="Portada de {{ juegoSeleccionado.nombre }}">
+            <img [src]="juegoSeleccionado.portada" alt="Portada de {{ juegoSeleccionado.nombre }}" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
         </div>
         <div class="game-info">
             <h1>{{ juegoSeleccionado.nombre }}</h1>
+            
+            <!-- EL PROMEDIO GLOBAL -->
+            <h3 *ngIf="promedioGlobal > 0" style="color: gold; margin-top: 5px; text-shadow: 1px 1px 2px black;">
+                Calificación Global: ⭐ {{ promedioGlobal | number:'1.1-1' }} / 10
+            </h3>
+
             <p><strong>Género:</strong> {{ juegoSeleccionado.genero }}</p>
             <p><strong>Plataforma:</strong> {{ juegoSeleccionado.plataforma }}</p>
             <p class="description">{{ juegoSeleccionado.descripcion }}</p>
             
-            <button class="btn-primario mt-20">Añadir a Favoritos</button>
+            <!-- EL BOTÓN DE FAVORITOS INTERACTIVO -->
+            <button class="btn-primario mt-20" 
+                    (click)="cambiarFavorito()" 
+                    [style.background-color]="esFavorito ? '#d9534f' : 'var(--primary-color)'">
+                {{ esFavorito ? '❤️ Quitar de Favoritos' : '🤍 Añadir a Favoritos' }}
+            </button>
         </div>
     </section>
 
-    <section class="reviews-section">
-        <h2>Reseñas de la Comunidad</h2>
-
-        <div class="review-form">
+    <!-- SECCIÓN DE RESEÑAS A DOS COLUMNAS -->
+    <section class="reviews-section" style="display: flex; gap: 40px; margin-top: 50px; border-top: 1px solid #444; padding-top: 40px;">
+    
+        <!-- COLUMNA IZQUIERDA: Formulario -->
+        <div class="review-form" style="flex: 1; margin: 0; box-shadow: none; border: 1px solid #333; padding: 20px; border-radius: 8px;">
             <h3>Escribe tu reseña</h3>
-            <textarea placeholder="¿Qué te pareció el juego?"></textarea>
-            <button class="btn-primario mt-10">Publicar Reseña</button>
+            <form [formGroup]="formularioReview" (ngSubmit)="enviarReview()">
+                <textarea formControlName="comentario" placeholder="¿Qué te pareció el juego?" class="comentario-textarea" style="width: 100%; height: 100px; margin-bottom: 10px;"></textarea>
+                <div class="calificacion-group" style="margin-bottom: 15px;">
+                    <label for="calificacion">Calificación (0-10): </label>
+                    <input type="number" id="calificacion" formControlName="calificacion" min="0" max="10" class="calificacion-input" style="width: 60px; padding: 5px;">
+                </div>
+                <button type="submit" class="btn-primario mt-10" [disabled]="formularioReview.invalid">Publicar Reseña</button>
+            </form>
         </div>
 
-        <div class="review-list mt-30">
-            @for (resena of resenas; track resena.usuario) {
-                <div class="review-card">
-                    <p class="user-info">
-                        <strong>{{ resena.usuario }}</strong> - {{ resena.fecha }}
-                    </p>
-                    <p>{{ resena.texto }}</p>
-                </div>
-            }
+        <!-- COLUMNA DERECHA: Lista de Reseñas -->
+        <div class="review-list" style="flex: 1; max-height: 400px; overflow-y: auto; padding-right: 15px;">
+            <h3 class="review-list-title" style="margin-top: 0; color: var(--primary-color);">Opiniones de la comunidad</h3>
+            
+            <div *ngIf="listaResenas.length === 0" class="no-reviews" style="color: gray;">
+                Aún no hay reseñas. ¡Sé el primero!
+            </div>
+            
+            <div class="review-card" *ngFor="let resena of listaResenas" style="background: var(--card-bg); padding: 15px; margin-bottom: 15px; border-radius: 8px; border-left: 4px solid var(--primary-color);">
+                <p class="user-info" style="margin-bottom: 5px;">
+                    <strong>👤 {{ resena.usuarioNombre }}</strong> 
+                    <span class="user-rating" style="color: gold; float: right;">⭐ {{ resena.calificacion }}/10</span>
+                </p>
+                <p class="user-comment" style="font-style: italic; margin: 10px 0;">"{{ resena.comentario }}"</p>
+                <small class="review-date" style="color: gray;">{{ resena.fecha | date:'longDate' }}</small>
+            </div>
         </div>
     </section>
+
 </div>
 
 <div class="container not-found-container" *ngIf="!juegoSeleccionado">

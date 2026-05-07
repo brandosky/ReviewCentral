@@ -1,8 +1,41 @@
-<main>
-  <section class="texto-intro">
-    <h1>La plataforma definitiva para reseñas de videojuegos.</h1>
-    <p>Descubre, comparte y conecta con la comunidad gamer.</p>
+<main style="padding: 40px 20px;">
+  
+  <section class="texto-intro" style="text-align: center; margin-bottom: 60px;">
+    <h1 style="font-size: 3rem; color: var(--primary-color, #4a90e2); text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+      La plataforma definitiva para reseñas de videojuegos.
+    </h1>
+    <p style="font-size: 1.2rem; color: #ccc;">
+      Descubre, comparte y conecta con la comunidad gamer.
+    </p>
     <br>
-    <a routerLink="/catalogo" class="btn-primario">Explorar Catálogo</a>
+    <a routerLink="/catalogo" class="btn-primario" style="font-size: 1.1rem; padding: 12px 24px;">Explorar Catálogo</a>
   </section>
+
+  <section class="juegos-destacados" style="max-width: 1200px; margin: 0 auto;">
+    <h2 style="text-align: left; border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 30px; color: white;">
+       Juegos Destacados
+    </h2>
+
+    <div class="games-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+        
+        <div *ngFor="let juego of gameService.games() | slice:0:3" 
+             class="game-card" 
+             style="background: var(--card-bg, #1e1e1e); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.4); transition: transform 0.3s ease;">
+            
+            <img [src]="juego.portada" alt="{{ juego.nombre }}" style="width: 100%; height: 200px; object-fit: cover;">
+            
+            <div style="padding: 20px; text-align: left;">
+                <h3 style="margin: 0 0 10px 0; color: white;">{{ juego.nombre }}</h3>
+                <p style="color: #aaa; margin: 0 0 15px 0;">{{ juego.plataforma }}</p>
+                
+                <a [routerLink]="['/juego', juego.id_nombre]" 
+                   style="display: block; text-align: center; background: var(--primary-color, #4a90e2); color: white; padding: 10px; border-radius: 5px; text-decoration: none; font-weight: bold;">
+                    Ver Detalles
+                </a>
+            </div>
+        </div>
+
+    </div>
+  </section>
+
 </main>

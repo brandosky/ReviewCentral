@@ -1,40 +1,164 @@
-<div class="form-container form-centrado panel-admin-container">
-    <h2>Panel de Administración</h2>
-    <p>Agrega un nuevo videojuego a la base de datos.</p>
+<div class="dashboard-layout" style="display: flex; min-height: 80vh;">
     
-    <form [formGroup]="formularioJuego" (ngSubmit)="guardarJuego()">
+    <!-- MENÚ LATERAL -->
+    <aside class="sidebar" style="width: 250px; background: #1a1a1a; padding: 20px; border-right: 1px solid #333;">
+        <h2 class="sidebar-title" style="color: var(--primary-color);">Panel de Control.</h2>
+        <ul class="sidebar-menu" style="list-style: none; padding: 0; margin-top: 30px;">
+            <li class="sidebar-item" style="margin-bottom: 15px;">
+                <button (click)="seccionActiva = 'juegos'" class="btn-primario sidebar-btn" style="width: 100%; background: #333;">Subir Juego</button>
+            </li>
+            <li class="sidebar-item" style="margin-bottom: 15px;">
+                <button (click)="seccionActiva = 'usuarios'" class="btn-primario sidebar-btn" style="width: 100%; background: #333;">Usuarios</button>
+            </li>
+            <li>
+                <button (click)="seccionActiva = 'resenas'" class="btn-primario sidebar-btn" style="width: 100%; background: #333;">Borrar Reseñas</button>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="main-content" style="flex: 1; padding: 40px;">
         
-        <div class="form-group">
-            <label for="id_nombre">id para la url(ejemplo:mario-bros):</label>
-            <input type="text" id="id_nombre" formControlName="id_nombre" placeholder="sin-espacios-ni-mayusculas">
-        </div>
-  
-        <div class="form-group">
-            <label for="nombre">Nombre oficial del juego:</label>
-            <input type="text" id="nombre" formControlName="nombre">
-        </div>
-  
-    <div class="form-group flex-group">
-        <div class="flex-item">
-                <label for="genero">Género:</label>
-                <input type="text" id="genero" formControlName="genero" placeholder="Ej: Plataformas">
-            </div>
-        <div class="flex-item">
-                <label for="plataforma">Plataforma:</label>
-                <input type="text" id="plataforma" formControlName="plataforma" placeholder="Ej: Nintendo Switch">
-            </div>
-        </div>
-  
-        <div class="form-group">
-            <label for="portada">Ruta de la imagen (Portada):</label>
-            <input type="text" id="portada" formControlName="portada">
+        <!-- PESTAÑA: JUEGOS -->
+        <div *ngIf="seccionActiva === 'juegos'" class="panel-admin-container panel-juegos-container" style="margin: 0; max-width: 100%;">
+            <h2>Gestión de Videojuegos</h2>
+            
+            <!-- EL FORMULARIO -->
+            <form [formGroup]="formularioJuego" (ngSubmit)="guardarJuego()">
+                
+                <div class="form-group">
+                    <label for="nombre">Nombre oficial del juego:</label>
+                    <input type="text" id="nombre" formControlName="nombre">
+                </div>
+          
+                <div class="form-group flex-group">
+                    <div class="flex-item">
+                        <label for="genero">Género:</label>
+                        <input type="text" id="genero" formControlName="genero" placeholder="Ejemplo:Acción">
+                    </div>
+                    <div class="flex-item">
+                        <label for="plataforma">Plataforma:</label>
+                        <input type="text" id="plataforma" formControlName="plataforma" placeholder="Ejemplo: Nintendo Switch">
+                    </div>
+                </div>
+          
+                <div class="form-group">
+                    <label for="portada">Subir la portada del juego:</label>
+                    <input type="file" id="portada" (change)="subirImagen($event)" accept="image/*" style="color: white;">                
+                </div>
+                
+                <div class="form-group">
+                    <label for="descripcion">Descripción:</label>
+                    <textarea id="descripcion" formControlName="descripcion" rows="4" class="textarea-custom"></textarea>
+                </div>
+                
+                <!-- BOTONES DEL FORMULARIO -->
+                <div style="display: flex; gap: 10px;">
+                    <button type="submit" class="btn-primario" [disabled]="formularioJuego.invalid">
+                        {{ modoEdicion ? 'Actualizar Videojuego' : 'Guardar Videojuego' }}
+                    </button>
+                    <button type="button" *ngIf="modoEdicion" class="btn-primario" style="background: #555;" (click)="cancelarEdicion()">
+                        Cancelar
+                    </button>
+                </div>
+            </form>
+
+            <!-- LA TABLA DE JUEGOS -->
+            <hr style="border-color: #444; margin: 40px 0;">
+            <h3 style="color: var(--primary-color);">Juegos Publicados</h3>
+            
+            <table style="width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                <thead>
+                    <tr style="background: #333; text-align: left;">
+                        <th style="padding: 15px;">Juego</th>
+                        <th style="padding: 15px;">Plataforma</th>
+                        <th style="padding: 15px; text-align: center;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let juego of gameService.games()" style="border-bottom: 1px solid #444;">
+                        <td style="padding: 15px;">{{ juego.nombre }}</td>
+                        <td style="padding: 15px;">{{ juego.plataforma }}</td>
+                        <td style="padding: 15px; text-align: center;">
+                            <button (click)="cargarJuegoParaEditar(juego)" class="btn-primario" style="background-color: #f0ad4e; padding: 5px 10px; margin-right: 5px;">
+                                Editar
+                            </button>
+                            <button (click)="borrarJuego($any(juego)._id, juego.nombre)" class="btn-primario" style="background-color: #d9534f; padding: 5px 10px;">
+                                Borrar
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-        <div class="form-group">
-            <label for="descripcion">Descripción:</label>
-        <textarea id="descripcion" formControlName="descripcion" rows="4" class="textarea-custom"></textarea>
+        <!-- PESTAÑA: USUARIOS -->
+        <div *ngIf="seccionActiva === 'usuarios'" style="max-width: 100%;">
+            <h2 style="color: var(--primary-color);">Gestión de usuarios</h2>
+            <p style="color: gray; margin-bottom: 20px;">Ten cuidado, si borras a un usuario sus datos no se podrán recuperar.</p>
+            
+            <table style="width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                <thead>
+                    <tr style="background: #333; text-align: left;">
+                        <th style="padding: 15px;">Nombre</th>
+                        <th style="padding: 15px;">Correo</th>
+                        <th style="padding: 15px;">Rol</th>
+                        <th style="padding: 15px; text-align: center;">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of listaUsuarios" style="border-bottom: 1px solid #444;">
+                        <td style="padding: 15px;">{{ user.nombre }} {{ user.apellido }}</td>
+                        <td style="padding: 15px;">{{ user.email }}</td>
+                        <td style="padding: 15px;">
+                            <span [style.color]="user.rol === 'administrador' ? '#ffaa00' : 'white'">
+                                {{ user.rol | uppercase }}
+                            </span>
+                        </td>
+                        <td style="padding: 15px; text-align: center;">
+                            <!-- oculta el boton si el usuario es  admin -->
+                            <button *ngIf="user.rol !== 'administrador'" 
+                                    (click)="borrarUsuario(user._id, user.nombre)" 
+                                    class="btn-primario" 
+                                    style="background-color: #d9534f; padding: 5px 10px;">
+                                Expulsar
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        
-        <button type="submit" class="btn-primario" [disabled]="formularioJuego.invalid">Guardar Videojuego</button>
-    </form>
+
+        <!-- PESTAÑA: RESEÑAS -->
+        <div *ngIf="seccionActiva === 'resenas'" style="max-width: 100%;">
+            <h2 style="color: var(--primary-color);">Moderación de Reseñas</h2>
+            
+            <table style="width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                <thead>
+                    <tr style="background: #333; text-align: left;">
+                        <th style="padding: 15px;">Usuario</th>
+                        <th style="padding: 15px;">Juego</th>
+                        <th style="padding: 15px;">Comentario</th>
+                        <th style="padding: 15px;">Nota</th>
+                        <th style="padding: 15px; text-align: center;">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí iteraremos la listaResenasGlobales -->
+                    <tr *ngFor="let resena of listaResenasGlobales" style="border-bottom: 1px solid #444;">
+                        <td style="padding: 15px;">👤 {{ resena.usuarioNombre }}</td>
+                        <td style="padding: 15px;">🎮 {{ resena.juegoId }}</td>
+                        <td style="padding: 15px; font-style: italic;">"{{ resena.comentario }}"</td>
+                        <td style="padding: 15px; color: gold;">⭐ {{ resena.calificacion }}</td>
+                        <td style="padding: 15px; text-align: center;">
+                            <button (click)="borrarResena(resena._id)" class="btn-primario" style="background-color: #d9534f; padding: 5px 10px;">
+                                🗑️ Borrar
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
 </div>

@@ -12,7 +12,7 @@
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 30px;
 }
 
@@ -36,7 +36,7 @@
 
 .juego-card img {
     width: 100%;
-    height: 180px;
+    height: 250px;
     object-fit: cover;
 }
 
